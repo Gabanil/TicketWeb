@@ -1,20 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Web_App.Data;
-using System;
-using System.Linq;
-using Web_App.Models;
 
-namespace Web_App.Data
+namespace Web_App.Models
 {
-    public class AppDbInitializer
+    public static class AppDbInitializer
     {
         //seeding database
-        public static void Seed(IApplicationBuilder applicationBuilder)
-        {
-            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+        public static void Seed(IServiceProvider serviceProvider)
+        {            
+            using (var context = new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>()))
             {
-                var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
 
                 context.Database.EnsureCreated();
 
@@ -139,7 +134,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(-2),
                             CinemaId = 1,
                             ProducerId = 3,
-                            MovieCategory = Enums.MovieCategory.Action
+                            MovieCategory = MovieCategory.Action
                         },
                         new Movie()
                         {
@@ -151,7 +146,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(7),
                             CinemaId = 2,
                             ProducerId = 2,
-                            MovieCategory = Enums.MovieCategory.Thriller
+                            MovieCategory = MovieCategory.Thriller
                         },
                         new Movie()
                         {
@@ -163,7 +158,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(-5),
                             CinemaId = 3,
                             ProducerId = 1,
-                            MovieCategory = Enums.MovieCategory.Documentary
+                            MovieCategory = MovieCategory.Documentary
                         },
                         new Movie()
                         {
@@ -175,7 +170,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(7),
                             CinemaId = 1,
                             ProducerId = 3,
-                            MovieCategory = Enums.MovieCategory.Thriller
+                            MovieCategory = MovieCategory.Thriller
                         },
                         new Movie()
                         {
@@ -187,7 +182,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(7),
                             CinemaId = 1,
                             ProducerId = 3,
-                            MovieCategory = Enums.MovieCategory.Thriller
+                            MovieCategory = MovieCategory.Thriller
                         },
                         new Movie()
                         {
@@ -199,7 +194,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(7),
                             CinemaId = 1,
                             ProducerId = 3,
-                            MovieCategory = Enums.MovieCategory.Thriller
+                            MovieCategory = MovieCategory.Thriller
                         },
                         new Movie()
                         {
@@ -211,7 +206,7 @@ namespace Web_App.Data
                             EndDate = DateTime.Now.AddDays(7),
                             CinemaId = 1,
                             ProducerId = 3,
-                            MovieCategory = Enums.MovieCategory.Thriller
+                            MovieCategory = MovieCategory.Thriller
                         },
                     });
                     context.SaveChanges();

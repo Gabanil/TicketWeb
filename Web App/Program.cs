@@ -16,6 +16,14 @@ builder.Services.AddScoped<IActorsService, ActorsService>();
 
 var app = builder.Build();
 
+//seed db
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    AppDbInitializer.Seed(services);
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -34,8 +42,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-//seed db
-AppDbInitializer.Seed(app);
 
 app.Run();

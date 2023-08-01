@@ -1,4 +1,4 @@
-﻿namespace Web_App.Data.Enums
+﻿namespace Web_App.Data
 {
     public enum MovieCategory
     {
